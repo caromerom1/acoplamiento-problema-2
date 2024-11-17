@@ -3,21 +3,14 @@ package production;
 import java.util.ArrayList;
 
 public class Cajero {
-    public static Inventario inventario;
-
-    public Cajero(Inventario inventario) {
-        this.inventario = inventario;
-    }
-
-    public static void procesarTransaccion(Carrito carrito) {
-        double precio = Inventario.darPrecio(carrito);
+    public static void procesarTransaccion(Carrito carrito, Inventario inventario) {
+        double precio = carrito.darPrecio();
         System.out.println("El precio total es: " + precio);
-        inventario.actualizarInventario(carrito);
+        inventario.actualizarInventario(carrito.productos);
     }
 
     public static void main(String[] args) {
         Inventario inventario = new Inventario();
-        Cajero cajero = new Cajero(inventario);
 
         Producto producto1 = new Producto("Producto 1", 1000);
         Producto producto2 = new Producto("Producto 2", 2000);
@@ -33,10 +26,7 @@ public class Cajero {
         carrito.productos.add(producto1);
         carrito.productos.add(producto2);
 
-        procesarTransaccion(carrito);
-
-
+        procesarTransaccion(carrito, inventario);
     }
-
 
 }
